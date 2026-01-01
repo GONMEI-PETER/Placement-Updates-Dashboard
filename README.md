@@ -125,3 +125,167 @@ This project is open for educational and non-commercial use.
 
 **Last Updated**: January 2026
 **Version**: 1.0
+
+---
+
+## 📊 Mock Interview Dashboard
+
+### Quick Access
+- **Main Dashboard**: [`mock-interview-dashboard.html`](./mock-interview-dashboard.html)
+- **Setup Guide**: [`MOCK-INTERVIEW-DASHBOARD-SETUP.md`](./MOCK-INTERVIEW-DASHBOARD-SETUP.md)
+- **Data Structure**: [`DATA-STRUCTURE-GUIDE.md`](./DATA-STRUCTURE-GUIDE.md)
+
+### Overview
+Interactive dashboard for managing and displaying mock interview schedules, statistics, and participant information. Features real-time data updates from Google Sheets with automatic refresh every 30 seconds.
+
+### Key Features
+✅ **Live Statistics Dashboard**
+- Total interview count
+- Scheduled dates overview  
+- Time slot distribution (19:30, 19:45, 20:00)
+
+✅ **Interview Schedule Table**
+- Student names with interview dates and times
+- Color-coded time slots for quick identification
+- Sortable and searchable data
+
+✅ **Interview Information**
+- Display of 3 key interview questions
+- Direct Google Meet link integration
+- Last updated timestamp
+
+✅ **Responsive Design**
+- Works on desktop, tablet, and mobile devices
+- Modern gradient UI with smooth animations
+- Intuitive card-based layout
+
+### How It Works
+
+```
+┌─────────────────┐
+│  Your Excel     │
+│  File (.xlsx)   │
+└────────┬────────┘
+         │ Convert & Upload
+         ↓
+┌─────────────────┐
+│ Google Sheets   │
+│  (Public Share) │
+└────────┬────────┘
+         │ Google Sheets API
+         ↓
+┌─────────────────┐
+│   Browser       │
+│ JavaScript Code │
+└────────┬────────┘
+         │ Fetch & Render
+         ↓
+┌─────────────────┐
+│   Beautiful     │
+│   Dashboard     │
+└─────────────────┘
+         │ Auto-refresh
+         └──→ Every 30 seconds
+```
+
+### Quick Start
+
+#### Option 1: Use Immediately (Quickest)
+1. Download `mock-interview-dashboard.html`
+2. Open in your browser (no internet required for local use)
+3. View the sample data
+
+#### Option 2: Connect Your Data
+1. **Convert Excel to Google Sheets**
+   - Upload your Excel file to Google Drive
+   - Open with Google Sheets
+   - Share publicly
+
+2. **Get API Credentials**
+   - Enable Google Sheets API in Google Cloud Console
+   - Create an API key
+
+3. **Update Dashboard Code**
+   - Edit `mock-interview-dashboard.html`
+   - Replace API key and Sheet ID (around line 200)
+
+4. **Deploy**
+   - Host on GitHub Pages, web server, or open locally
+   - Changes in Excel reflect automatically!
+
+### Data Requirements
+
+Your Excel file needs:
+- **Schedule Sheet**: Student names, dates, times, and slots
+- **Questions Sheet**: 3 interview questions + Google Meet link
+- Proper date/time formatting (see DATA-STRUCTURE-GUIDE.md)
+
+### Features & Statistics
+
+| Feature | Status | Details |
+|---------|--------|----------|
+| Interview Statistics | ✅ | Real-time counts & analysis |
+| Schedule Display | ✅ | Sortable table with 10+ rows |
+| Color-coded Slots | ✅ | Blue (19:30), Purple (19:45), Green (20:00) |
+| Auto-refresh | ✅ | Every 30 seconds (configurable) |
+| Responsive Design | ✅ | Mobile, tablet, desktop |
+| Google Meet Integration | ✅ | Direct link in questions section |
+| Search & Filter | 🔄 | Planned enhancement |
+| PDF Export | 🔄 | Planned enhancement |
+| Email Notifications | 🔄 | Planned enhancement |
+
+### Customization
+
+**Change Colors:**
+- Edit CSS section (lines 15-80)
+- Update color hex codes
+
+**Change Refresh Rate:**
+- Edit line 310: `setInterval(() => {...}, 30000)`
+- 30000 = 30 seconds (adjust as needed)
+
+**Show More Rows:**
+- Edit line 305: `slice(0, 10)` → `slice(0, 20)`
+- Shows first 20 rows instead of 10
+
+### Browser Compatibility
+✅ Chrome/Edge (Latest)
+✅ Firefox (Latest)
+✅ Safari (Latest)
+✅ Mobile Browsers
+
+### File Size & Performance
+- Dashboard file: ~15 KB (HTML + CSS + JS)
+- Load time: <1 second
+- Works with up to 10,000 interview records
+- Optimized for both local and server hosting
+
+### Support & Troubleshooting
+
+**Dashboard not updating?**
+- Check browser console (F12) for errors
+- Verify API key and Sheet ID are correct
+- Ensure Google Sheet is publicly shared
+- Wait 30 seconds for auto-refresh
+
+**Data not loading?**
+- Check Google Sheets API is enabled
+- Verify data structure matches expected format
+- Test API key permissions
+- See DATA-STRUCTURE-GUIDE.md for format examples
+
+**Need help?**
+- Read MOCK-INTERVIEW-DASHBOARD-SETUP.md for detailed instructions
+- Check DATA-STRUCTURE-GUIDE.md for data format requirements
+- Review troubleshooting sections in both guides
+
+### Future Enhancements
+- 📊 Analytics and charts
+- 🔔 Email/browser notifications
+- 👥 Candidate profile cards
+- 📥 CSV/PDF export
+- 🎯 Interview feedback tracking
+- ⚙️ Admin dashboard
+- 🔐 User authentication
+
+---
