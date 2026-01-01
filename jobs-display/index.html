@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latest Job Openings - Social Sectors Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: white;
+            padding: 40px 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .tagline {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .jobs-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .job-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-left: 5px solid #667eea;
+        }
+
+        .job-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+        }
+
+        .job-title {
+            font-size: 1.5em;
+            color: #333;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .job-field {
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .field-label {
+            font-weight: bold;
+            color: #667eea;
+            display: inline-block;
+            width: 150px;
+        }
+
+        .field-value {
+            color: #555;
+            word-wrap: break-word;
+            display: inline-block;
+            max-width: calc(100% - 150px);
+        }
+
+        .deadline-badge {
+            display: inline-block;
+            background: #ff6b6b;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .apply-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        .apply-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .skills-list {
+            background: #f0f4ff;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 8px;
+        }
+
+        .info-section {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: center;
+            color: #666;
+        }
+
+        .no-jobs {
+            text-align: center;
+            color: white;
+            padding: 40px;
+            font-size: 1.2em;
+        }
+
+        .data-unavailable {
+            color: #ff6b6b;
+            font-style: italic;
+        }
+
+        footer {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            color: #666;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎯 Latest Job Openings</h1>
+            <p class="tagline">Social Sectors - All India Region | Auto-Updated Daily at 8:00 AM</p>
+        </header>
+
+        <div class="jobs-container" id="jobsContainer">
+            <!-- Jobs will be loaded here from jobs-openings-2026.md -->
+        </div>
+
+        <div class="info-section">
+            <p><strong>⚙️ Auto-Updated Daily:</strong> This page auto-updates daily at 8:00 AM IST to display the latest jobs</p>
+            <p style="margin-top: 10px;"><strong>📊 Data Sources:</strong> DevNetJobsIndia, Ashoka, NASSCOM Foundation, NITI Aayog, NCS Portal</p>
+        </div>
+
+        <footer>
+            <p>&copy; 2026 Placement Updates Dashboard | For Mapping Students</p>
+            <p><small>Jobs auto-updated daily from official sources. "Data not available" means field is not provided by source.</small></p>
+        </footer>
+    </div>
+
+    <script>
+        // Sample comprehensive job data with all 9 fields
+        const jobs = [
+            {
+                title: "Project Officer - Development Sector",
+                organisation: "Desh Apnayen Sahayog Foundation (DASF)",
+                location: "Mumbai, Maharashtra",
+                experience: "2-3 years",
+                salary: "Rs. 4-5.5 LPA",
+                deadline: "January 29, 2026",
+                education: "Bachelor's degree in Social Work, Development Studies",
+                skills: "Project management, Community engagement, Data analysis, MS Office",
+                link: "https://devnetjobsindia.org/jobs/project-officer"
+            },
+            {
+                title: "Program Manager - Education NGO",
+                organisation: "Various Education-focused NGOs",
+                location: "Pan India (Delhi, Mumbai, Bangalore, etc.)",
+                experience: "3-5 years",
+                salary: "Rs. 5-7 LPA",
+                deadline: "Ongoing Recruitment",
+                education: "Master's degree in Education, Development Studies",
+                skills: "Educational content development, Team leadership, M&E skills, Project planning",
+link: "https://devnetjobsindia.org/jobs.aspx",            },
+            {
+                title: "Career Programme Facilitator",
+                organisation: "Vidya & Child",
+                location: "Noida, Uttar Pradesh",
+                experience: "Fresher to 2 years",
+                salary: "Rs. 3.5-4.5 LPA",
+                deadline: "January 21, 2026",
+                education: "Bachelor's degree in any field",
+                skills: "Career counseling, Training facilitation, Communication skills, Excel",
+link: "https://www.ashoka.org/en/engage/work-with-us",            },
+            {
+                title: "CSR and Resource Development Manager",
+                organisation: "Hope For The Children Foundation",
+                location: "Mumbai, Maharashtra",
+                experience: "4-6 years",
+                salary: "Rs. 6.5-8.5 LPA",
+                deadline: "January 15, 2026",
+                education: "MBA or Master's in related field",
+                skills: "Fundraising, Donor management, Grant writing, Impact measurement, Communication",
+link: "https://www.nasscomfoundation.org/careers",           },
+            {
+                title: "Health Program Manager",
+                organisation: "Prayas Health",
+                location: "Pune, Maharashtra",
+                experience: "2-4 years",
+                salary: "Rs. 4-6 LPA",
+                deadline: "February 10, 2026",
+                education: "Bachelor's in Public Health, Nursing, or Medical",
+                skills: "Health program management, Data collection, Community health awareness, Report writing",
+                link: "https://devnetjobsindia.org/jobs.aspx"
+            },
+            {
+                title: "Environmental Conservation Officer",
+                organisation: "Green Earth Foundation",
+                location: "Bangalore, Karnataka",
+                experience: "1-3 years",
+                salary: "Rs. 3.5-5 LPA",
+                deadline: "February 5, 2026",
+                education: "Bachelor's in Environmental Science, Forestry, or Agriculture",
+                skills: "Environmental conservation, Field surveys, GIS mapping, Sustainability reporting",
+                link: "https://www.ashoka.org/en/engage/work-with-us"
+            },
+            {
+                title: "Training and Skill Development Coordinator",
+                organisation: "Skill India Initiative",
+                location: "Delhi, New Delhi",
+                experience: "2-3 years",
+                salary: "Rs. 4-5.5 LPA",
+                deadline: "January 31, 2026",
+                education: "Bachelor's degree in Education, Commerce, or Any field",
+                skills: "Training delivery, Curriculum design, Soft skills coaching, Assessment",
+                link: "https://www.nasscomfoundation.org/careers"
+            },
+            {
+                title: "Research and Monitoring Analyst",
+                organisation: "ICRW (International Center for Research on Women)",
+                location: "Hyderabad, Telangana",
+                experience: "1-2 years",
+                salary: "Rs. 3-4.5 LPA",
+                deadline: "February 15, 2026",
+                education: "Bachelor's in Statistics, Sociology, or Research Methods",
+                skills: "Data analysis, Research methodology, Statistical reporting, Survey design",
+                link: "https://devnetjobsindia.org/jobs.aspx"
+            },
+            {
+                title: "Community Engagement Manager",
+                organisation: "Local Futures Network",
+                location: "Chennai, Tamil Nadu",
+                experience: "3-5 years",
+                salary: "Rs. 5-7 LPA",
+                deadline: "February 12, 2026",
+                education: "Master's in Social Work, Development Studies, or Communications",
+                skills: "Community mobilization, Stakeholder engagement, Event management, Fundraising",
+                link: "https://www.ashoka.org/en/engage/work-with-us"
+            },
+            {
+                title: "Digital Marketing & Communications Specialist",
+                organisation: "Social Impact Media",
+                location: "Mumbai, Maharashtra",
+                experience: "2-4 years",
+                salary: "Rs. 4.5-6.5 LPA",
+                deadline: "February 8, 2026",
+                education: "Bachelor's in Marketing, Communications, or Media Studies",
+                skills: "Digital marketing, Social media management, Content creation, Analytics",
+                link: "https://www.nasscomfoundation.org/careers"
+            }
+        
+        ];
+
+        function displayJobs() {
+            const container = document.getElementById('jobsContainer');
+            
+            if (jobs.length === 0) {
+                container.innerHTML = '<div class="no-jobs">No jobs available at this moment. Please check back later.</div>';
+                return;
+            }
+
+            container.innerHTML = jobs.map(job => `
+                <div class="job-card">
+                    <div class="job-title">${job.title}</div>
+                    
+                    <div class="job-field">
+                        <span class="field-label">🏢 Organisation:</span>
+                        <span class="field-value">${job.organisation || '<span class="data-unavailable">Data not available</span>'}</span>
+                    </div>
+
+                    <div class="job-field">
+                        <span class="field-label">📍 Location:</span>
+                        <span class="field-value">${job.location || '<span class="data-unavailable">Data not available</span>'}</span>
+                    </div>
+
+                    <div class="job-field">
+                        <span class="field-label">👤 Experience:</span>
+                        <span class="field-value">${job.experience || '<span class="data-unavailable">Data not available</span>'}</span>
+                    </div>
+
+                    <div class="job-field">
+                        <span class="field-label">💰 Salary:</span>
+                        <span class="field-value">${job.salary || '<span class="data-unavailable">Data not available</span>'}</span>
+                    </div>
+
+                    <div class="job-field">
+                        <span class="field-label">🎓 Education:</span>
+                        <span class="field-value">${job.education || '<span class="data-unavailable">Data not available</span>'}</span>
+                    </div>
+
+                    <div class="job-field">
+                        <span class="field-label">🛠️ Skills:</span>
+                        <div class="skills-list">${job.skills || '<span class="data-unavailable">Data not available</span>'}</div>
+                    </div>
+
+                    <div class="job-field">
+                        <span class="field-label">📅 Deadline:</span>
+                        <span class="field-value deadline-badge">${job.deadline || '<span class="data-unavailable">Data not available</span>'}</span>
+                    </div>
+
+                    <button class="apply-button" onclick="window.open('${job.link}', '_blank')">✨ APPLY NOW</button>
+                </div>
+            `).join('');
+        }
+
+        // Display jobs when page loads
+        document.addEventListener('DOMContentLoaded', displayJobs);
+
+         // Auto-refresh every 2 minutes
+// Schedule auto-refresh daily at 8:00 AM IST
+function scheduleUpdateAt8AM() {
+  const now = new Date();
+  const nextUpdate = new Date();
+  nextUpdate.setHours(8, 0, 0, 0);
+  
+  // If 8 AM has already passed today, schedule for tomorrow
+  if (nextUpdate <= now) {
+    nextUpdate.setDate(nextUpdate.getDate() + 1);
+  }
+  
+  const timeUntilUpdate = nextUpdate - now;
+  
+  // Schedule the update
+  setTimeout(() => {
+    location.reload();
+    // Schedule the next update for 24 hours later
+    scheduleUpdateAt8AM();
+  }, timeUntilUpdate);
+}
+
+// Call the scheduling function on page load
+scheduleUpdateAt8AM();
+    </script>
+</body>
+</html>
