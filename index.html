@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Placement Updates Dashboard - Social Sectors</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Placement Updates Dashboard</h1>
+            <p class="tagline">Track opportunities across social sectors - Education, Healthcare, Development & more</p>
+        </div>
+    </header>
+
+    <nav class="navbar">
+        <div class="container">
+            <ul class="nav-menu">
+                <li><a href="#dashboard" class="nav-link">Dashboard</a></li>
+                <li><a href="#job-profiles" class="nav-link">Job Profiles</a></li>
+                <li><a href="#cv-guide" class="nav-link">CV/CL/JD Guide</a></li>
+                <li><a href="#placements" class="nav-link">Placements</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Dashboard Section -->
+    <section id="dashboard" class="section dashboard-section">
+        <div class="container">
+            <h2>Placement Dashboard</h2>
+            <p class="section-desc">Filter opportunities by domain and view placement updates</p>
+            
+            <div class="filter-container">
+                <button class="filter-btn active" data-filter="all">All Sectors</button>
+                <button class="filter-btn" data-filter="education">Education</button>
+                <button class="filter-btn" data-filter="healthcare">Healthcare</button>
+                <button class="filter-btn" data-filter="development">Development</button>
+                <button class="filter-btn" data-filter="finance">Finance</button>
+                <button class="filter-btn" data-filter="admin">Administration</button>
+                <button class="filter-btn" data-filter="environment">Environment</button>
+                <button class="filter-btn" data-filter="technology">Technology</button>
+            </div>
+
+            <div class="placements-grid" id="placements-grid">
+                <!-- Placements will be loaded here by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Job Profiles Section -->
+    <section id="job-profiles" class="section job-profiles-section">
+        <div class="container">
+            <h2>What Job Profiles Stand Out?</h2>
+            <p class="section-desc">Understanding what makes job applications successful in social sectors</p>
+
+            <div class="profiles-grid">
+                <div class="profile-card">
+                    <h3>Program Manager</h3>
+                    <p><strong>Required Skills:</strong> Project management, Stakeholder engagement, Data analysis</p>
+                    <p><strong>CV Focus:</strong> Highlight leadership experience, project completion, team management</p>
+                    <p><strong>CL Strategy:</strong> Emphasize impact-driven projects and organizational skills</p>
+                </div>
+
+                <div class="profile-card">
+                    <h3>Field Coordinator</h3>
+                    <p><strong>Required Skills:</strong> Field operations, Community engagement, Report writing</p>
+                    <p><strong>CV Focus:</strong> Ground-level experience, community work, implementation expertise</p>
+                    <p><strong>CL Strategy:</strong> Show commitment to social impact and grassroots work</p>
+                </div>
+
+                <div class="profile-card">
+                    <h3>Research Associate</h3>
+                    <p><strong>Required Skills:</strong> Data collection, Analysis, Report writing, Statistical skills</p>
+                    <p><strong>CV Focus:</strong> Research projects, publications, analytical competencies</p>
+                    <p><strong>CL Strategy:</strong> Demonstrate evidence-based approach and research rigor</p>
+                </div>
+
+                <div class="profile-card">
+                    <h3>Financial Manager</h3>
+                    <p><strong>Required Skills:</strong> Budgeting, Compliance, Financial reporting, Auditing</p>
+                    <p><strong>CV Focus:</strong> Financial management experience, software proficiency, compliance expertise</p>
+                    <p><strong>CL Strategy:</strong> Highlight transparency and accountability in financial management</p>
+                </div>
+
+                <div class="profile-card">
+                    <h3>HR & Admin Officer</h3>
+                    <p><strong>Required Skills:</strong> HR processes, Team management, Policy implementation</p>
+                    <p><strong>CV Focus:</strong> HR initiatives, employee development, process improvements</p>
+                    <p><strong>CL Strategy:</strong> Show understanding of organizational culture and team dynamics</p>
+                </div>
+
+                <div class="profile-card">
+                    <h3>Technology Specialist</h3>
+                    <p><strong>Required Skills:</strong> Software development, System design, Data management</p>
+                    <p><strong>CV Focus:</strong> Technical projects, coding languages, system implementations</p>
+                    <p><strong>CL Strategy:</strong> Demonstrate tech solutions for social impact</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CV/CL/JD Guide Section -->
+    <section id="cv-guide" class="section cv-guide-section">
+        <div class="container">
+            <h2>CV, Cover Letter & Job Description Matching Guide</h2>
+            <p class="section-desc">How to align your application materials with job requirements</p>
+
+            <div class="guide-container">
+                <div class="guide-card">
+                    <h3>Understanding the Job Description (JD)</h3>
+                    <ul>
+                        <li><strong>Key Responsibilities:</strong> Identify 3-5 core functions of the role</li>
+                        <li><strong>Required Skills:</strong> List technical and soft skills mentioned</li>
+                        <li><strong>Qualifications:</strong> Note education, experience, and certifications</li>
+                        <li><strong>Compensation & Benefits:</strong> Understand what's being offered</li>
+                        <li><strong>Application Requirements:</strong> Check all required documents</li>
+                    </ul>
+                </div>
+
+                <div class="guide-card">
+                    <h3>Building Your CV (Curriculum Vitae)</h3>
+                    <ul>
+                        <li><strong>Tailor to JD:</strong> Customize for each position you apply for</li>
+                        <li><strong>Action Verbs:</strong> Use strong verbs: Led, Implemented, Managed, Analyzed</li>
+                        <li><strong>Quantify Achievements:</strong> Use numbers - "Managed team of 15" vs "Managed team"</li>
+                        <li><strong>Relevant Experience:</strong> Prioritize roles matching job requirements</li>
+                        <li><strong>Format:</strong> One page for entry-level, 2 pages max for experienced</li>
+                        <li><strong>Keywords:</strong> Match key terms from the job description</li>
+                    </ul>
+                </div>
+
+                <div class="guide-card">
+                    <h3>Writing Your Cover Letter</h3>
+                    <ul>
+                        <li><strong>Address Specifically:</strong> Use hiring manager's name if possible</li>
+                        <li><strong>Show Alignment:</strong> Map your skills to their needs</li>
+                        <li><strong>Tell Your Story:</strong> Explain why you're interested in THIS role</li>
+                        <li><strong>Demonstrate Knowledge:</strong> Show research about the organization</li>
+                        <li><strong>Keep It Concise:</strong> 3-4 paragraphs, under one page</li>
+                        <li><strong>Call to Action:</strong> End with enthusiasm to discuss further</li>
+                    </ul>
+                </div>
+
+                <div class="guide-card">
+                    <h3>CV/CL/JD Matching Checklist</h3>
+                    <ul>
+                        <li>[ ] All JD requirements addressed in CV/CL?</li>
+                        <li>[ ] Used relevant keywords from JD?</li>
+                        <li>[ ] Quantified achievements and results?</li>
+                        <li>[ ] Showed understanding of organization?</li>
+                        <li>[ ] Demonstrated passion for the sector?</li>
+                        <li>[ ] No typos or grammatical errors?</li>
+                        <li>[ ] PDF saved with professional filename?</li>
+                        <li>[ ] Followed application instructions exactly?</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Placements Section -->
+    <section id="placements" class="section placements-section">
+        <div class="container">
+            <h2>Recent Placements & Success Stories</h2>
+            <p class="section-desc">Success stories from mapping students across social sectors</p>
+
+            <div class="success-stories">
+                <div class="story-card">
+                    <h3>Education Sector</h3>
+                    <p><strong>Role:</strong> Program Manager - Education</p>
+                    <p><strong>Organization:</strong> NGO focused on rural education</p>
+                    <p><strong>Success Factor:</strong> Strong project management background and community engagement</p>
+                    <p><strong>Salary Range:</strong> 4.5 - 6 LPA</p>
+                </div>
+
+                <div class="story-card">
+                    <h3>Healthcare Sector</h3>
+                    <p><strong>Role:</strong> Health Program Coordinator</p>
+                    <p><strong>Organization:</strong> Public Health Organization</p>
+                    <p><strong>Success Factor:</strong> Data analysis skills and health background</p>
+                    <p><strong>Salary Range:</strong> 5 - 7 LPA</p>
+                </div>
+
+                <div class="story-card">
+                    <h3>Development Sector</h3>
+                    <p><strong>Role:</strong> Field Operations Manager</p>
+                    <p><strong>Organization:</strong> International Development Agency</p>
+                    <p><strong>Success Factor:</strong> Leadership experience and cultural sensitivity</p>
+                    <p><strong>Salary Range:</strong> 6 - 8.5 LPA</p>
+                </div>
+
+                <div class="story-card">
+                    <h3>Finance Sector</h3>
+                    <p><strong>Role:</strong> Financial Officer</p>
+                    <p><strong>Organization:</strong> Social Enterprise</p>
+                    <p><strong>Success Factor:</strong> Accounting background and compliance knowledge</p>
+                    <p><strong>Salary Range:</strong> 5.5 - 7.5 LPA</p>
+                </div>
+
+                <div class="story-card">
+                    <h3>Technology Sector</h3>
+                    <p><strong>Role:</strong> Junior Developer</p>
+                    <p><strong>Organization:</strong> Tech for Social Impact Company</p>
+                    <p><strong>Success Factor:</strong> Coding skills and social responsibility mindset</p>
+                    <p><strong>Salary Range:</strong> 6 - 9 LPA</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>© 2026 Placement Updates Dashboard | Created for Mapping Students Group</p>
+            <p>Location: Khandwa Region | Contact: Your Placement Coordinator</p>
+            <p><small>For placement opportunities and guidance, connect with your placement coordinator</small></p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
