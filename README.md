@@ -107,7 +107,7 @@ Latest news and opportunities in different social sectors
 
 Created by: Placement Coordination Team
 For: Mapping Students Group
-Location: Khandwa Region
+Location: All India Region
 
 ## Contact & Updates
 
