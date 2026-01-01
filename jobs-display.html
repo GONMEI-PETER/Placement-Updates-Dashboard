@@ -163,7 +163,7 @@
     <div class="container">
         <header>
             <h1>🎯 Latest Job Openings</h1>
-            <p class="tagline">Social Sectors - All India Region | Auto-Updated Every 2 Minutes</p>
+            <p class="tagline">Social Sectors - All India Region | Auto-Updated Daily at 8:00 AM</p>
         </header>
 
         <div class="jobs-container" id="jobsContainer">
@@ -171,7 +171,7 @@
         </div>
 
         <div class="info-section">
-            <p><strong>⚙️ Auto-Updated Daily:</strong> This page auto-refreshes every 2 minutes to display the latest jobs</p>
+            <p><strong>⚙️ Auto-Updated Daily:</strong> This page auto-updates daily at 8:00 AM IST to display the latest jobs</p>
             <p style="margin-top: 10px;"><strong>📊 Data Sources:</strong> DevNetJobsIndia, Ashoka, NASSCOM Foundation, NITI Aayog, NCS Portal</p>
         </div>
 
@@ -350,9 +350,29 @@ link: "https://www.nasscomfoundation.org/careers",           },
         document.addEventListener('DOMContentLoaded', displayJobs);
 
          // Auto-refresh every 2 minutes
- setInterval(function() {
- location.reload();
- }, 2 * 60 * 1000); // 2 minutes in milliseconds
+// Schedule auto-refresh daily at 8:00 AM IST
+function scheduleUpdateAt8AM() {
+  const now = new Date();
+  const nextUpdate = new Date();
+  nextUpdate.setHours(8, 0, 0, 0);
+  
+  // If 8 AM has already passed today, schedule for tomorrow
+  if (nextUpdate <= now) {
+    nextUpdate.setDate(nextUpdate.getDate() + 1);
+  }
+  
+  const timeUntilUpdate = nextUpdate - now;
+  
+  // Schedule the update
+  setTimeout(() => {
+    location.reload();
+    // Schedule the next update for 24 hours later
+    scheduleUpdateAt8AM();
+  }, timeUntilUpdate);
+}
+
+// Call the scheduling function on page load
+scheduleUpdateAt8AM();
     </script>
 </body>
 </html>
