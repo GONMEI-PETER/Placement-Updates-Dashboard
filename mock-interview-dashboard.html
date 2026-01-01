@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mock Interview Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .refresh-info {
+            color: rgba(255,255,255,0.9);
+            font-size: 0.9em;
+        }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+        
+        .card h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        .stat-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .stat {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border-left: 4px solid #667eea;
+        }
+        
+        .stat-value {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 0.9em;
+            color: #666;
+        }
+        
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            font-size: 0.9em;
+        }
+        
+        .schedule-table th {
+            background: #667eea;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .schedule-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .schedule-table tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .time-slot {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+        
+        .slot-193000 { background: #e3f2fd; color: #1976d2; }
+        .slot-194500 { background: #f3e5f5; color: #7b1fa2; }
+        .slot-200000 { background: #e8f5e9; color: #388e3c; }
+        
+        .question-item {
+            background: #f8f9fa;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .question-item strong {
+            color: #667eea;
+        }
+        
+        .google-meet-link {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 20px;
+            background: #ea4335;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+        
+        .google-meet-link:hover {
+            background: #c5221f;
+        }
+        
+        .full-width {
+            grid-column: 1 / -1;
+        }
+        
+        .loading {
+            text-align: center;
+            color: white;
+            font-size: 1.1em;
+        }
+        
+        .error {
+            background: #ffebee;
+            color: #c62828;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-left: 4px solid #c62828;
+        }
+        
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+            
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📊 Mock Interview Dashboard</h1>
+            <div class="refresh-info">
+                <span id="lastUpdate">Loading data...</span>
+                <br>
+                <small>Data updates automatically every 30 seconds</small>
+            </div>
+        </header>
+        
+        <div id="content" class="dashboard-grid"></div>
+    </div>
+    
+    <script>
+        const GOOGLE_SHEETS_API_KEY = 'AIzaSyDyT9bN4K5xK3x5xK5xK5xK5xK5xK5xK'; // Replace with your API key
+        const SHEET_ID = '1q7L8mR7K3xK5xK5xK3x5xK5xK5xK5xK5xK5'; // Replace with your Sheet ID
+        
+        // Simulated data for demonstration
+        const mockData = {
+            schedule: [
+                { month: 'Dec 2025', date: '2025-12-08', time: '193000', name: 'Shubham Kr.' },
+                { month: 'Dec 2025', date: '2025-12-08', time: '194500', name: 'Shruti Jain' },
+                { month: 'Dec 2025', date: '2025-12-08', time: '200000', name: 'koteswara rao' },
+                { month: 'Jan 2026', date: '2026-01-06', time: '193000', name: 'Chanchal Isokar' },
+                { month: 'Jan 2026', date: '2026-01-06', time: '194500', name: 'Khimeshwar Kokode' },
+                { month: 'Feb 2026', date: '2026-02-02', time: '200000', name: 'Shreyash Gupta' }
+            ],
+            questions: [
+                'What are your strengths and why do you think so?',
+                'What are your areas of improvement and why do you think so?',
+                'What is your desirable role and org and why so?'
+            ],
+            meetLink: 'https://meet.google.com/pei-pptg-nih'
+        };
+        
+        function formatTime(time) {
+            // Convert time like 193000 to 19:30
+            const str = time.toString().padStart(6, '0');
+            return `${str.substring(0, 2)}:${str.substring(2, 4)}`;
+        }
+        
+        function renderDashboard(data) {
+            const content = document.getElementById('content');
+            content.innerHTML = '';
+            
+            // Statistics Card
+            const statsCard = createStatsCard(data.schedule);
+            content.appendChild(statsCard);
+            
+            // Questions Card
+            const questionsCard = createQuestionsCard(data.questions, data.meetLink);
+            content.appendChild(questionsCard);
+            
+            // Schedule Card
+            const scheduleCard = createScheduleCard(data.schedule);
+            content.appendChild(scheduleCard);
+            
+            // Update timestamp
+            document.getElementById('lastUpdate').textContent = `Last updated: ${new Date().toLocaleTimeString()}`;
+        }
+        
+        function createStatsCard(schedule) {
+            const card = document.createElement('div');
+            card.className = 'card';
+            
+            const slotStats = {};
+            schedule.forEach(item => {
+                slotStats[item.time] = (slotStats[item.time] || 0) + 1;
+            });
+            
+            let statsHTML = '<h2>📈 Interview Statistics</h2><div class="stat-group">';
+            statsHTML += `<div class="stat"><div class="stat-value">${schedule.length}</div><div class="stat-label">Total Interviews</div></div>`;
+            statsHTML += `<div class="stat"><div class="stat-value">${new Set(schedule.map(s => s.date)).size}</div><div class="stat-label">Scheduled Dates</div></div>`;
+            
+            Object.keys(slotStats).forEach(slot => {
+                statsHTML += `<div class="stat"><div class="stat-value">${slotStats[slot]}</div><div class="stat-label">Slot ${formatTime(slot)}</div></div>`;
+            });
+            
+            statsHTML += '</div>';
+            card.innerHTML = statsHTML;
+            return card;
+        }
+        
+        function createQuestionsCard(questions, meetLink) {
+            const card = document.createElement('div');
+            card.className = 'card';
+            
+            let html = '<h2>❓ Interview Questions</h2>';
+            questions.forEach((q, idx) => {
+                html += `<div class="question-item"><strong>Q${idx + 1}:</strong> ${q}</div>`;
+            });
+            
+            html += `<a href="${meetLink}" target="_blank" class="google-meet-link">🎥 Join Google Meet</a>`;
+            
+            card.innerHTML = html;
+            return card;
+        }
+        
+        function createScheduleCard(schedule) {
+            const card = document.createElement('div');
+            card.className = 'card full-width';
+            
+            let html = '<h2>📅 Interview Schedule</h2>';
+            html += '<table class="schedule-table"><thead><tr><th>Date</th><th>Time</th><th>Student Name</th></tr></thead><tbody>';
+            
+            const sortedSchedule = [...schedule].sort((a, b) => new Date(a.date) - new Date(b.date));
+            sortedSchedule.slice(0, 10).forEach(item => {
+                const timeSpan = `<span class="time-slot slot-${item.time}">${formatTime(item.time)}</span>`;
+                html += `<tr><td>${item.date}</td><td>${timeSpan}</td><td>${item.name}</td></tr>`;
+            });
+            
+            html += '</tbody></table>';
+            card.innerHTML = html;
+            return card;
+        }
+        
+        function initDashboard() {
+            renderDashboard(mockData);
+            
+            // Auto-refresh every 30 seconds
+            setInterval(() => {
+                renderDashboard(mockData);
+            }, 30000);
+        }
+        
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', initDashboard);
+    </script>
+</body>
+</html>
