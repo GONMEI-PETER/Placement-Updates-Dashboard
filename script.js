@@ -1,13 +1,9 @@
 // Placement Data
 const placementData = [
-  { id: 1, title: 'Program Manager', sector: 'education', org: 'Education NGO', description: 'Lead educational programs in rural areas' },
-  { id: 2, title: 'Field Coordinator', sector: 'development', org: 'Development Org', description: 'Coordinate field operations and community engagement' },
-  { id: 3, title: 'Health Officer', sector: 'healthcare', org: 'Health Ministry', description: 'Public health program coordination' },
-  { id: 4, title: 'Finance Manager', sector: 'finance', org: 'Social Enterprise', description: 'Financial management and reporting' },
-  { id: 5, title: 'Research Associate', sector: 'development', org: 'Research Institute', description: 'Data collection and analysis' },
-  { id: 6, title: 'HR Specialist', sector: 'admin', org: 'Corporate Foundation', description: 'Human resources and administration' },
-  { id: 7, title: 'Environmental Officer', sector: 'environment', org: 'Green Initiative', description: 'Environmental conservation programs' },
-  { id: 8, title: 'Tech Developer', sector: 'technology', org: 'EdTech Startup', description: 'Software development for social impact' }
+ { id: 1, title: 'Project Officer', sector: 'development', org: 'Desh Apnayen Sahayog Foundation (DASF)', description: 'Design and implement development programs' },  { id: 2, title: 'Field Coordinator', sector: 'development', org: 'Development Org', description: 'Coordinate field operations and community engagement' },
+ { id: 2, title: 'Program Manager', sector: 'education', org: 'Various Education-focused NGOs', description: 'Lead educational programs across Pan India' },  { id: 4, title: 'Finance Manager', sector: 'finance', org: 'Social Enterprise', description: 'Financial management and reporting' },
+ { id: 3, title: 'Career Programme Facilitator', sector: 'education', org: 'Vidya & Child', description: 'Design and facilitate career development programs' },  { id: 6, title: 'HR Specialist', sector: 'admin', org: 'Corporate Foundation', description: 'Human resources and administration' },
+ { id: 4, title: 'CSR and Resource Development Manager', sector: 'finance', org: 'Hope For The Children Foundation', description: 'Develop CSR proposals and manage donor relationships' },  { id: 8, title: 'Tech Developer', sector: 'technology', org: 'EdTech Startup', description: 'Software development for social impact' }
 ];
 
 // DOM Elements
