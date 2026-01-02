@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Placement Support Dashboard</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: #020617;
+      --accent: #22c55e;
+      --accent-soft: rgba(34, 197, 94, 0.1);
+      --text-main: #e5e7eb;
+      --text-muted: #9ca3af;
+      --danger: #f97373;
+      --warning: #facc15;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at top, #1e293b 0, #020617 45%, #020617 100%);
+      color: var(--text-main);
+      padding: 24px 16px 40px;
+    }
+
+    .page {
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    /* HERO */
+    .hero {
+      border-radius: 20px;
+      padding: 24px 20px;
+      background: linear-gradient(
+          135deg,
+          rgba(34, 197, 94, 0.15),
+          rgba(56, 189, 248, 0.08)
+        ),
+        rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      box-shadow: 0 22px 40px rgba(15, 23, 42, 0.9);
+      margin-bottom: 24px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .badge span.dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 12px rgba(34, 197, 94, 0.9);
+    }
+
+    h1 {
+      font-size: clamp(26px, 4vw, 34px);
+      line-height: 1.1;
+      margin-bottom: 10px;
+    }
+
+    h1 span.highlight {
+      color: var(--accent);
+    }
+
+    .hero-subtitle {
+      font-size: 14px;
+      color: var(--text-muted);
+      max-width: 560px;
+      line-height: 1.5;
+      margin-bottom: 18px;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .hero-meta-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+    }
+
+    .hero-meta-item .pill-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+    }
+
+    .pill-dot.green {
+      background: #22c55e;
+      box-shadow: 0 0 10px rgba(34, 197, 94, 0.9);
+    }
+
+    .pill-dot.yellow {
+      background: #facc15;
+      box-shadow: 0 0 10px rgba(250, 204, 21, 0.9);
+    }
+
+    .pill-dot.red {
+      background: #f97373;
+      box-shadow: 0 0 10px rgba(248, 113, 113, 0.9);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .btn-primary {
+      border-radius: 999px;
+      padding: 9px 20px;
+      font-size: 14px;
+      border: none;
+      cursor: pointer;
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+      color: #0b1120;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 14px 30px rgba(22, 163, 74, 0.5);
+      text-decoration: none;
+    }
+
+    .btn-secondary {
+      border-radius: 999px;
+      padding: 9px 16px;
+      font-size: 13px;
+      cursor: pointer;
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text-main);
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+
+    .btn-secondary span.dot-outline {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      border: 1px solid #f97373;
+      box-shadow: 0 0 8px rgba(248, 113, 113, 0.8);
+    }
+
+    /* BODY GRID */
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* PROBLEM CARD */
+    .card {
+      background: rgba(15, 23, 42, 0.95);
+      border-radius: 18px;
+      padding: 18px 16px;
+      border: 1px solid rgba(55, 65, 81, 0.85);
+      box-shadow: 0 18px 32px rgba(15, 23, 42, 0.9);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .tag-critical {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(248, 113, 113, 0.8);
+      color: #fecaca;
+      background: rgba(127, 29, 29, 0.4);
+    }
+
+    .problem-text {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+
+    .problem-points {
+      list-style: none;
+      padding-left: 0;
+      margin-bottom: 8px;
+    }
+
+    .problem-points li {
+      font-size: 13px;
+      color: #e5e7eb;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .problem-badge {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+    }
+
+    .problem-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .problem-pill span.status {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--danger);
+      box-shadow: 0 0 8px rgba(248, 113, 113, 0.9);
+    }
+
+    /* COMMITMENTS */
+    .commitments {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    @media (max-width: 640px) {
+      .commitments {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .commit-card {
+      background: radial-gradient(circle at top left, #0f172a 0, #020617 50%);
+      border-radius: 16px;
+      padding: 14px 12px;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .commit-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .commit-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .commit-title span.check {
+      width: 16px;
+      height: 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(74, 222, 128, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: #4ade80;
+      box-shadow: 0 0 10px rgba(34, 197, 94, 0.8);
+    }
+
+    .commit-body {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 8px;
+    }
+
+    .commit-bullets {
+      list-style: none;
+      padding-left: 0;
+      margin-bottom: 8px;
+    }
+
+    .commit-bullets li {
+      font-size: 12px;
+      color: #e5e7eb;
+      display: flex;
+      gap: 6px;
+      align-items: flex-start;
+      margin-bottom: 4px;
+    }
+
+    .commit-bullets span.bullet {
+      margin-top: 3px;
+      font-size: 10px;
+      color: #4ade80;
+    }
+
+    .commit-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 10px;
+      color: var(--text-muted);
+      border-top: 1px dashed rgba(75, 85, 99, 0.8);
+      padding-top: 6px;
+      margin-top: 4px;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 7px;
+      border-radius: 999px;
+      font-size: 10px;
+      background: rgba(22, 163, 74, 0.08);
+      border: 1px solid rgba(34, 197, 94, 0.7);
+      color: #bbf7d0;
+    }
+
+    .status-pill span.dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 8px rgba(34, 197, 94, 0.9);
+    }
+
+    /* FOOTER CTA */
+    .footer-cta {
+      margin-top: 18px;
+      font-size: 12px;
+      color: var(--text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      font-size: 12px;
+    }
+
+    .footer-links a {
+      color: #a5b4fc;
+      text-decoration: none;
+      padding: 3px 6px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+    }
+
+    .footer-links a:hover {
+      border-color: #818cf8;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="badge">
+        <span class="dot"></span>
+        <span>Placement Updates Dashboard · Pilot</span>
+      </div>
+
+      <h1>
+        Placement Support, <span class="highlight">Made Clear & Fair</span>
+      </h1>
+
+      <p class="hero-subtitle">
+        One space to see timelines, track opportunities, and access structured support – without the noise, panic, or last-minute confusion.
+      </p>
+
+      <div class="hero-meta">
+        <div class="hero-meta-item">
+          <span class="pill-dot green"></span>
+          <span>Live master calendar</span>
+        </div>
+        <div class="hero-meta-item">
+          <span class="pill-dot yellow"></span>
+          <span>4 support tracks</span>
+        </div>
+        <div class="hero-meta-item">
+          <span class="pill-dot red"></span>
+          <span>Real talk on outcomes</span>
+        </div>
+      </div>
+
+      <div class="hero-actions">
+        <a href="#calendar" class="btn-primary">
+          <span>Open Master Calendar</span>
+          <span>↗</span>
+        </a>
+        <a href="#updates" class="btn-secondary">
+          <span class="dot-outline"></span>
+          <span>See this week's updates</span>
+        </a>
+      </div>
+    </section>
+
+    <div class="layout">
+      <!-- PROBLEM -->
+      <section class="card">
+        <div class="card-header">
+          <div>
+            <div class="card-title">The Problem</div>
+            <div class="problem-badge">What students are experiencing right now</div>
+          </div>
+          <span class="tag-critical">High stress · Low clarity</span>
+        </div>
+
+        <p class="problem-text">
+          Placement season should feel structured and predictable, but most students are navigating it in the dark – chasing messages, guessing timelines, and comparing themselves silently.
+        </p>
+
+        <ul class="problem-points">
+          <li>
+            <span>⚠️</span>
+            <span>Unclear timelines – no single view of what is happening when.</span>
+          </li>
+          <li>
+            <span>📌</span>
+            <span>Scattered info – updates spread across WhatsApp, email, and folders.</span>
+          </li>
+          <li>
+            <span>⚖️</span>
+            <span>Unequal support – some students get 1-1 guidance, others feel lost.</span>
+          </li>
+          <li>
+            <span>💭</span>
+            <span>High stress – constant pressure, comparison, and fear of falling behind.</span>
+          </li>
+        </ul>
+
+        <div class="problem-pill">
+          <span class="status"></span>
+          <span>Goal: turn a stressful, opaque process into a calm, transparent system.</span>
+        </div>
+      </section>
+
+      <!-- COMMITMENTS -->
+      <section class="commitments">
+        <!-- 1. Live Master Calendar -->
+        <article class="commit-card" id="calendar">
+          <div class="commit-label">Commitment 1</div>
+          <div class="commit-title">
+            <span class="check">✓</span>
+            <span>Live Master Calendar</span>
+          </div>
+          <p class="commit-body">
+            A single calendar where every important placement event lives – always up to date, always in one place.
+          </p>
+          <ul class="commit-bullets">
+            <li>
+              <span class="bullet">•</span>
+              <span>See all deadlines, recruiter sessions, and internal tasks in one view.</span>
+            </li>
+            <li>
+              <span class="bullet">•</span>
+              <span>Filter by track (Tier-1, social sector, fellowships, etc.).</span>
+            </li>
+            <li>
+              <span class="bullet">•</span>
+              <span>Plan calmly instead of reacting at the last minute.</span>
+            </li>
+          </ul>
+          <div class="commit-footer">
+            <span>"Know exactly what's happening, when."</span>
+            <span class="status-pill">
+              <span class="dot"></span>
+              <span>Source of truth</span>
+            </span>
+          </div>
+        </article>
+
+        <!-- 2. 4 Support Tracks -->
+        <article class="commit-card">
+          <div class="commit-label">Commitment 2</div>
+          <div class="commit-title">
+            <span class="check">✓</span>
+            <span>4 Support Tracks</span>
+          </div>
+          <p class="commit-body">
+            Structured support for very different placement journeys – instead of one generic "prep".
+          </p>
+          <ul class="commit-bullets">
+            <li>
+              <span class="bullet">•</span>
+              <span>Tier-1 prep: high-rigour practice for competitive roles.</span>
+            </li>
+            <li>
+              <span class="bullet">•</span>
+              <span>Diverse careers: social sector, CSR, development, and fellowships.</span>
+            </li>
+            <li>
+              <span class="bullet">•</span>
+              <span>Skill-building: CV/CL labs, mock interviews, and peer review circles.</span>
+            </li>
+            <li>
+              <span class="bullet">•</span>
+              <span>Personal support: doubt-clearing, small groups, and 1-1 check-ins.</span>
+            </li>
+          </ul>
+          <div class="commit-footer">
+            <span>"Support that matches where you are."</span>
+            <span class="status-pill">
+              <span class="dot"></span>
+              <span>4-track model</span>
+            </span>
+          </div>
+        </article>
+
+        <!-- 3. Weekly Updates -->
+        <article class="commit-card" id="updates">
+          <div class="commit-label">Commitment 3</div>
+          <div class="commit-title">
+            <span class="check">✓</span>
+            <span>Weekly Updates</span>
+          </div>
+          <p class="commit-body">
+            A once-a-week snapshot of everything that actually matters – no more hunting for scattered messages.
+          </p>
+          <ul class="commit-bullets">
+            <li>
+              <span class="bullet">•</span>
+              <span>New openings, deadlines, and shortlists in one concise update.</span>
+            </li>
+            <li>
+              <span class="bullet">•</span>
+              <span>Clear "this week focus" for each support track.</span>
+            </li>
+            <li>
+              <span class="bullet">•</span>
+              <span>Linked back to the master calendar and resources.</span>
+            </li>
+          </ul>
+          <div class="commit-footer">
+            <span>"One place to catch up, once a week."</span>
+            <span class="status-pill">
+              <span class="dot"></span>
+              <span>Update rhythm</span>
+            </span>
+          </div>
+        </article>
+
+        <!-- 4. Mental Health Support -->
+        <article class="commit-card">
+          <div class="commit-label">Commitment 4</div>
+          <div class="commit-title">
+            <span class="check">✓</span>
+            <span>Mental Health Support</span>
+          </div>
+          <p class="commit-body">
+            Honest conversations and safe spaces around anxiety, rejection, and non-linear journeys.
+          </p>
+          <ul class="commit-bullets">
+            <li>
+              <span class="bullet">•</span>
+              <span>Real Talk circles on fear, comparison, and uncertainty.</span>
+            </li>
+            <li>
+              <span class="bullet">•</span>
+              <span>Check-ins after major results, not just "success stories".</span>
+            </li>
+            <li>
+              <span class="bullet">•</span>
+              <span>We celebrate all outcomes – jobs, higher studies, fellowships, experiments, and pauses.</span>
+            </li>
+          </ul>
+          <div class="commit-footer">
+            <span>"You are not your offer letter."</span>
+            <span class="status-pill">
+              <span class="dot"></span>
+              <span>Real talk</span>
+            </span>
+          </div>
+        </article>
+      </section>
+    </div>
+
+    <!-- FOOTER CTA -->
+    <section class="footer-cta">
+      <p>
+        This dashboard is a working draft. Tell us what would make placements calmer and more transparent for you.
+      </p>
+      <div class="footer-links">
+        <a href="#">Share feedback</a>
+        <a href="#">Request 1-1 support</a>
+        <a href="#">Join updates group</a>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
