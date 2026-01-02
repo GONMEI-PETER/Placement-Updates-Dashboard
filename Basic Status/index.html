@@ -1,3 +1,5 @@
+230
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -220,7 +222,8 @@
       font-size: 0.85em;
     }
 
-    .section-title {
+    220
+    
       color: white;
       font-size: 1.6em;
       margin-bottom: 25px;
@@ -229,6 +232,90 @@
       padding-bottom: 15px;
       border-bottom: 3px solid #10b981;
       display: inline-block;
+    }
+    
+    .event-card {
+      background: white;
+      padding: 30px;
+      border-radius: 14px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      border-left: 6px solid #f59e0b;
+      margin-top: 20px;
+    }
+
+    .event-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid #e5e7eb;
+    }
+
+    .event-header h3 {
+      color: #0f172a;
+      font-size: 1.3em;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .event-date {
+      background: #f59e0b;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 0.85em;
+      font-weight: 600;
+    }
+
+    .event-content p {
+      margin-bottom: 12px;
+      color: #374151;
+      line-height: 1.6;
+    }
+
+    .event-message {
+      color: #f59e0b;
+      font-size: 1.05em;
+      font-weight: 600;
+    }
+
+    .event-deadline {
+      background: #fff3cd;
+      padding: 15px;
+      border-left: 4px solid #f59e0b;
+      border-radius: 4px;
+      color: #856404;
+      margin: 15px 0;
+    }
+
+    .event-tips {
+      background: #f0f9ff;
+      padding: 15px;
+      border-radius: 8px;
+      border-left: 4px solid #3b82f6;
+    }
+
+    .event-tips p {
+      color: #0f172a;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .event-tips ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .event-tips li {
+      color: #374151;
+      padding: 8px 0;
+      border-bottom: 1px solid #e0e7ff;
+    }
+
+    .event-tips li:last-child {
+      border-bottom: none;
     }
   </style>
 </head>
@@ -357,6 +444,28 @@
             <strong>Status:</strong> 100% Complete<br>
             <strong>Date:</strong> January 2, 2026<br>
             <strong>Archive:</strong> Ready
+          </div>
+        </div>
+      </div>
+      
+      <!-- Upcoming Events Section -->
+      <h2 class="section-title">📅 Upcoming Events & Announcements</h2>
+      <div class="event-card">
+        <div class="event-header">
+          <h3>📝 CV, Cover Letter & JD Updates</h3>
+          <span class="event-date">Deadline: 11th Jan (Sun)</span>
+        </div>
+        <div class="event-content">
+          <p class="event-title"><strong>Advice for the Cohort:</strong></p>
+          <p class="event-message">Kindly upload as soon as possible</p>
+          <p class="event-deadline"><strong>📌 Deadline:</strong> The first draft of your CVs and Cover Letters must be ready by <strong>11th Jan (Sun)</strong></p>
+          <div class="event-tips">
+            <p><strong>📋 What to Submit:</strong></p>
+            <ul>
+              <li>✓ CV (Curriculum Vitae) - Updated and professional</li>
+              <li>✓ Cover Letter (CL) - Customized and compelling</li>
+              <li>✓ Job Description Analysis (JD) - Understanding the role</li>
+            </ul>
           </div>
         </div>
       </div>
