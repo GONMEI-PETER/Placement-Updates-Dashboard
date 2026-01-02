@@ -1,93 +1,335 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Placement Dashboard - Basic Status</title>
-    <link rel="stylesheet" href="styles.css">
-    <style>
-        .clock {
-            font-size: 18px;
-            font-weight: bold;
-            color: #4a5568;
-            text-align: right;
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 12px 20px;
-            border-radius: 8px;
-            font-family: 'Courier New', monospace;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Placement Dashboard - Basic Status</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0f4c3a 0%, #1a6b4e 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    header {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+      padding: 30px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    header h1 {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      font-size: 1.1em;
+      opacity: 0.95;
+    }
+
+    .clock {
+      font-size: 18px;
+      font-weight: bold;
+      color: white;
+      text-align: right;
+      margin-bottom: 15px;
+      background: rgba(0, 0, 0, 0.2);
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-family: 'Courier New', monospace;
+    }
+
+    .stats-section {
+      margin-bottom: 40px;
+    }
+
+    .stats-section h2 {
+      color: white;
+      font-size: 1.8em;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 3px solid #10b981;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .stat-card {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      border-left: 5px solid #10b981;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .stat-card h3 {
+      color: #0f4c3a;
+      margin-bottom: 15px;
+      font-size: 1.1em;
+    }
+
+    .stat-number {
+      font-size: 2.5em;
+      color: #10b981;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .stat-card p {
+      color: #666;
+      font-size: 0.95em;
+    }
+
+    .summary-card {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      border-left: 5px solid #10b981;
+    }
+
+    .summary-card h3 {
+      color: #0f4c3a;
+      margin-bottom: 12px;
+      font-size: 1.2em;
+    }
+
+    .progress-bar {
+      background: #e0e0e0;
+      border-radius: 10px;
+      height: 30px;
+      overflow: hidden;
+      margin: 10px 0;
+    }
+
+    .progress-fill {
+      background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      font-size: 0.9em;
+      transition: width 0.5s ease;
+    }
+
+    .stat-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-top: 10px;
+    }
+
+    .stat-item {
+      background: #f5f5f5;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+      border: 2px solid #10b981;
+    }
+
+    .stat-item .label {
+      color: #666;
+      font-size: 0.9em;
+      margin-bottom: 8px;
+    }
+
+    .stat-item .value {
+      color: #10b981;
+      font-size: 1.8em;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="clock" id="clock">Loading...</div>
-            <h1>Placement Updates Dashboard</h1>
-            <p class="subtitle">Basic Status Report - January 2026</p>
-        </header>
+  <div class="container">
+    <header>
+      <div class="clock" id="clock">Loading...</div>
+      <h1>Placement Updates Dashboard</h1>
+      <p>Basic Status Report - January 2026</p>
+    </header>
 
-        <main>
-            <!-- PlaceComm Member Allocation Section -->
-            <section class="stats-section">
-                <h2>PlaceComm Member Allocation</h2>
-                <div class="grid-3">
-                    <div class="stat-card">
-                        <h3>Aakriti Sharma</h3>
-                        <div class="stat-number">15</div>
-                        <p>Students Allotted</p>
-                    </div>
-                    <div class="stat-card">
-                        <h3>Azruddin Sadik Nadaf</h3>
-                        <div class="stat-number">14</div>
-                        <p>Students Allotted</p>
-                    </div>
-                    <div class="stat-card">
-                        <h3>G Peter</h3>
-                        <div class="stat-number">15</div>
-                        <p>Students Allotted</p>
-                    </div>
-                    <div class="stat-card">
-                        <h3>Jahnavi Taak</h3>
-                        <div class="stat-number">14</div>
-                        <p>Students Allotted</p>
-                    </div>
-                    <div class="stat-card">
-                        <h3>Justin Jacob</h3>
-                        <div class="stat-number">15</div>
-                        <p>Students Allotted</p>
-                    </div>
-                    <div class="stat-card">
-                        <h3>Abiwaquash Ansari</h3>
-                        <div class="stat-number">15</div>
-                        <p>Students Allotted</p>
-                    </div>
-                    <div class="stat-card">
-                        <h3>Subhajit Chandra</h3>
-                        <div class="stat-number">14</div>
-                        <p>Students Allotted</p>
-                    </div>
-                </div>
-            </section>
-        </main>
-    </div>
+    <main>
+      <!-- PlaceComm Member Allocation Section -->
+      <section class="stats-section">
+        <h2>PlaceComm Member Allocation</h2>
+        <div class="grid-3">
+          <div class="stat-card">
+            <h3>Aakriti Sharma</h3>
+            <div class="stat-number">15</div>
+            <p>Students Allotted</p>
+          </div>
+          <div class="stat-card">
+            <h3>Azruddin Sadik Nadaf</h3>
+            <div class="stat-number">14</div>
+            <p>Students Allotted</p>
+          </div>
+          <div class="stat-card">
+            <h3>G Peter</h3>
+            <div class="stat-number">15</div>
+            <p>Students Allotted</p>
+          </div>
+          <div class="stat-card">
+            <h3>Jahnavi Taak</h3>
+            <div class="stat-number">14</div>
+            <p>Students Allotted</p>
+          </div>
+          <div class="stat-card">
+            <h3>Justin Jacob</h3>
+            <div class="stat-number">15</div>
+            <p>Students Allotted</p>
+          </div>
+          <div class="stat-card">
+            <h3>Abiwaquash Ansari</h3>
+            <div class="stat-number">15</div>
+            <p>Students Allotted</p>
+          </div>
+          <div class="stat-card">
+            <h3>Subhajit Chandra</h3>
+            <div class="stat-number">14</div>
+            <p>Students Allotted</p>
+          </div>
+        </div>
+      </section>
 
-    <script>
-        // Live Clock Function
-        function updateClock() {
-            const now = new Date();
-            const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            const seconds = String(now.getSeconds()).padStart(2, '0');
-            const date = now.toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
-            
-            document.getElementById('clock').textContent = `${date} | ${hours}:${minutes}:${seconds}`;
-        }
-        
-        // Update clock immediately and then every second
-        updateClock();
-        setInterval(updateClock, 1000);
-    </script>
+      <!-- Photo Capture Status -->
+      <section class="stats-section">
+        <h2>Photo Capture Status</h2>
+        <div class="summary-card">
+          <h3>Photo Mode Distribution</h3>
+          <div class="stat-row">
+            <div class="stat-item">
+              <div class="label">Camera Photo (Yes)</div>
+              <div class="value">100</div>
+              <div class="label">98.04%</div>
+            </div>
+            <div class="stat-item">
+              <div class="label">ID Picture (No)</div>
+              <div class="value">2</div>
+              <div class="label">1.96%</div>
+            </div>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 98.04%">98.04% Camera Photo</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Draft Submission Status -->
+      <section class="stats-section">
+        <h2>Draft Submission Status</h2>
+        <div class="summary-card">
+          <h3>Submission Progress</h3>
+          <div class="stat-row">
+            <div class="stat-item">
+              <div class="label">Submitted (Yes)</div>
+              <div class="value">100</div>
+              <div class="label">98.04%</div>
+            </div>
+            <div class="stat-item">
+              <div class="label">Not Submitted (No)</div>
+              <div class="value">2</div>
+              <div class="label">1.96%</div>
+            </div>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 98.04%">98.04% Submitted</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Draft Review Status -->
+      <section class="stats-section">
+        <h2>Draft Review Status</h2>
+        <div class="summary-card">
+          <h3>Review Completion</h3>
+          <div class="stat-row">
+            <div class="stat-item">
+              <div class="label">Reviewed (Yes)</div>
+              <div class="value">102</div>
+              <div class="label">100%</div>
+            </div>
+            <div class="stat-item">
+              <div class="label">Pending (No)</div>
+              <div class="value">0</div>
+              <div class="label">0%</div>
+            </div>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 100%">100% Reviewed</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Final Status -->
+      <section class="stats-section">
+        <h2>Final Status Overview</h2>
+        <div class="summary-card">
+          <h3>Profile Status</h3>
+          <div class="stat-row">
+            <div class="stat-item">
+              <div class="label">Closed</div>
+              <div class="value">102</div>
+              <div class="label">100%</div>
+            </div>
+            <div class="stat-item">
+              <div class="label">Open</div>
+              <div class="value">0</div>
+              <div class="label">0%</div>
+            </div>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 100%">100% Closed</div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // Live Clock Function
+    function updateClock() {
+      const now = new Date();
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+      const date = now.toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
+      
+      document.getElementById('clock').textContent = `${date} | ${hours}:${minutes}:${seconds}`;
+    }
+    
+    // Update clock immediately and then every second
+    updateClock();
+    setInterval(updateClock, 1000);
+  </script>
 </body>
 </html>
